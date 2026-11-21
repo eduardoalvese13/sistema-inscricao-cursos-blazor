@@ -1,0 +1,76 @@
+main {
+    box-sizing: border-box;
+    max-width: 34rem;
+    margin: clamp(1rem, 7vh, 4rem) auto;
+    padding: clamp(1rem, 5vw, 2.5rem);
+    border: 1px solid #dbe3ee;
+    border-radius: 1rem;
+    color: #16243a;
+    font-family: system-ui, sans-serif;
+}
+
+h1 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+fieldset {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-inline-size: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+
+main ::deep input,
+main ::deep select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #8292a8;
+    border-radius: 0.4rem;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+main ::deep .invalid {
+    border-color: #a22222;
+}
+
+main ::deep .validation-message,
+main ::deep .validation-errors {
+    color: #a22222;
+}
+
+button {
+    min-height: 2.75rem;
+    padding: 0.65rem 1rem;
+    border: 0;
+    border-radius: 0.4rem;
+    background: #174995;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #4c5e77;
+    cursor: wait;
+}
+
+.confirmacao {
+    margin: 1rem 0 0;
+    padding: 0.75rem;
+    border-radius: 0.4rem;
+    background: #e8f6ee;
+    color: #14552d;
+}

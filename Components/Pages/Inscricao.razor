@@ -1,0 +1,88 @@
+@page "/"
+@page "/inscricao"
+@rendermode InteractiveServer
+@using SistemaInscricaoCursosBlazor.Components.Models
+
+<PageTitle>Inscrição em cursos</PageTitle>
+
+<main>
+    <h1>Inscrição em cursos</h1>
+
+    <EditForm Model="modelo" FormName="InscricaoForm" OnValidSubmit="EnviarAsync"
+              OnInvalidSubmit="LimparConfirmacao" novalidate>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <fieldset disabled="@(!RendererInfo.IsInteractive || enviando)">
+            <div>
+                <label for="nome">Nome completo</label>
+                <InputText id="nome" autocomplete="name" @bind-Value="modelo.Nome" />
+                <ValidationMessage For="() => modelo.Nome" />
+            </div>
+
+            <div>
+                <label for="email">E-mail</label>
+                <InputText id="email" type="email" autocomplete="email" @bind-Value="modelo.Email" />
+                <ValidationMessage For="() => modelo.Email" />
+            </div>
+
+            <div>
+                <label for="idade">Idade</label>
+                <InputNumber id="idade" @bind-Value="modelo.Idade"
+                             ParsingErrorMessage="Informe sua idade em anos inteiros." />
+                <ValidationMessage For="() => modelo.Idade" />
+            </div>
+
+            <div>
+                <label for="curso">Curso</label>
+                <InputSelect id="curso" @bind-Value="modelo.CursoId">
+                    <option value="">Selecione um curso</option>
+                    <option value="desenvolvimento-web">Desenvolvimento Web</option>
+                    <option value="desenvolvimento-mobile">Desenvolvimento Mobile</option>
+                    <option value="design-de-jogos">Design de Jogos</option>
+                </InputSelect>
+                <ValidationMessage For="() => modelo.CursoId" />
+            </div>
+
+            <button type="submit" disabled="@enviando">
+                @(enviando ? "Processando..." : "Confirmar inscrição")
+            </button>
+        </fieldset>
+    </EditForm>
+
+    <div role="status">
+        @if (sucesso)
+        {
+            <p class="confirmacao">Inscrição realizada com sucesso!</p>
+        }
+    </div>
+</main>
+
+@code {
+    [SupplyParameterFromForm(FormName = "InscricaoForm")]
+    public InscricaoModel modelo { get; set; } = new();
+
+    private bool enviando;
+    private bool sucesso;
+
+    private async Task EnviarAsync()
+    {
+        if (enviando)
+        {
+            return;
+        }
+
+        sucesso = false;
+        enviando = true;
+
+        await Task.Delay(2000);
+
+        enviando = false;
+        sucesso = true;
+    }
+
+    private void LimparConfirmacao()
+    {
+        sucesso = false;
+    }
+}
